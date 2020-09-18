@@ -1,0 +1,15 @@
+body {
+	background: #eee;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+#game-board {
+	width: 600px;
+	height: 600px;
+	margin: auto;
+	border: 1px solid #ddd;
+}
