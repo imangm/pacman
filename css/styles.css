@@ -8,8 +8,28 @@ body {
 }
 
 #game-board {
-	width: 600px;
-	height: 600px;
+	position: relative;
+	width: 800px;
+	height: 800px;
 	margin: auto;
 	border: 1px solid #ddd;
+	background-color: #fff;
+}
+
+#activity-placer {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	padding: 0;
+	margin: 0;
+	width: 800px;
+}
+
+#activity-placer h1 {
+	margin: 0;
+	padding: 30px 60px 30px 60px;
+	text-transform: uppercase;
+	background: rgba(0, 0, 0, 0.4);
+	color: #fff;
 }
