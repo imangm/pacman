@@ -39,26 +39,40 @@ class ImiDOM {
 const unsplashAPI = "https://picsum.photos/800/800";
 const boredActivityAPI = "https://www.boredapi.com/api/activity/";
 
-fetch(unsplashAPI)
-	.then((x) => {
-		const imgPlacer = document.getElementById("image-placer");
-		const imageHolder = new ImiDOM("img", imgPlacer);
-		imageHolder.attr("src", x.url);
-		return fetch(boredActivityAPI);
-	})
-	.then((x) => {
-		return x.json();
-	})
-	.then((x) => {
+fetch(unsplashAPI, { cache: "no-cache" })
+	.then(
+		(response) => {
+			if (response.ok) {
+				//return response;
+				const imgPlacer = document.getElementById("image-placer");
+				const imageHolder = new ImiDOM("img", imgPlacer);
+				imageHolder.attr("src", response.url);
+				return fetch(boredActivityAPI);
+			}
+			throw new Error("Error getting image");
+		},
+		(networkError) => {
+			console.log(networkError.message);
+		}
+	)
+	.then(
+		(response) => {
+			if (response.ok) {
+				return response.json();
+			}
+			throw new Error("Error getting message");
+		},
+		(networkError) => {
+			console.log(networkError.message);
+		}
+	)
+	.then((response) => {
 		const actPlacer = document.getElementById("activity-placer");
 
-		const bannerHeader = new ImiDOM("h1", actPlacer, x.activity);
+		const bannerHeader = new ImiDOM("h1", actPlacer, response.activity);
 		bannerHeader.addClass("heading");
 		bannerHeader.setID("main-heading");
 
-		const bannerSubHeader = new ImiDOM("h3", actPlacer, x.type);
+		const bannerSubHeader = new ImiDOM("h3", actPlacer, response.type);
 		bannerSubHeader.addClass("sub-heading");
-	})
-	.catch((err) => {
-		console.log(err);
 	});
